@@ -139,16 +139,15 @@ end)
 
 -- start/stop hooks
 hl.on("hyprland.start", function()
-  hl.exec_cmd("systemctl --user start hyprland-session.target")
   hl.exec_cmd("/usr/libexec/hyprpolkitagent")
   hl.exec_cmd("wl-paste --type text --watch cliphist store")
   hl.exec_cmd("wl-paste --type image --watch cliphist store")
   hl.exec_cmd("hypridle")
 end)
 
-hl.on("hyprland.shutdown", function()
-  os.execute("systemctl --user stop hyprland-session.target && sleep 0.1")
-end)
+-- session start/stop (init-system specific; resolved by  yadm per machine)
+local session = dofile(os.getenv("HOME") .. "/.config/hypr/session.lua")
+session(hl)
 
 -- Special window rules
 hl.window_rule({
