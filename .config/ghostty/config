@@ -1,0 +1,27 @@
+# Font
+font-family = DepartureMono Nerd Font
+font-size = 11
+font-thicken = false
+
+# Theme (built in, no external file)
+theme = catppuccin-mocha.conf
+
+# Window
+window-padding-x = 10
+window-padding-y = 10
+window-padding-balance = true
+window-decoration = false
+
+# Cursor
+cursor-style = block
+cursor-style-blink = false
+
+# Mouse
+mouse-hide-while-typing = true
+copy-on-select = clipboard
+
+# Scrollback (bytes; this is ~10MB of history)
+scrollback-limit = 10000000
+
+# Shell integration (set to fish once you switch; detection is automatic if blank)
+shell-integration-features = no-cursor,sudo

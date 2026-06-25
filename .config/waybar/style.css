@@ -1,0 +1,41 @@
+* {
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: "DepartureMono Nerd Font";
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+	background-color: #181825;
+	color: #cdd6f4;
+}
+
+#workspaces, #clock, #battery, #cpu, #memory,
+#temperature, #network, #pulseaudio, #tray {
+	background-color: #1e1e2e;
+	padding: 2px 12px;
+	margin: 4px 3px;
+	border-radius: 10px;
+}
+
+#workspaces button {
+	color: #6c7086;
+	padding: 0 6px;
+	background: transparent;
+	border-radius: 8px;
+}
+
+#workspaces button.active { color: #cba6f7; }
+#workspaces button:hover { color: #b4befe; background: #313244; }
+
+#clock { color: #b4befe; }
+#battery { color: #a6e3a1; }
+#cpu { color: #89b4fa; }
+#memory { color: #cba6f7; }
+#temperature { color: #fab387; }
+#network { color: #89dceb; }
+#pulseaudio { color: #f9e2af; }
+
+#battery.warning:not(.charging) { color: #f9e2af; }
+#battery.critical:not(.charging) { color: #f38ba8; }
+#temperature.critical { color: #f38ba8; }
