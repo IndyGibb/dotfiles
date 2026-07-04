@@ -126,6 +126,11 @@ local menu = "rofi -show drun"
 
 hl.bind(mainMod .. " + " .. "D", hl.dsp.exec_cmd(menu))
 
+-- --- screenshots ---
+
+local screenshot = "grimblast --freeze copysave area"
+hl.bind(mainMod .. " + " .. " SHIFT " .. " + " .. "S", hl.dsp.exec_cmd(screenshot))
+
 -- --- Autostart ---
 
 -- exec-once = swaybg -m fill -i ~/Pictures.wallpaper.png
@@ -160,4 +165,30 @@ hl.window_rule({
 hl.env("HYPRCURSOR_THEME", "catppuccin-mocha-mauve-cursors")
 hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("XCURSOR_THEME", "catppuccin-mocha-mauve-cursors")
-hl.env("HYPRCURSOR_SIZE", "24")
+hl.env("XCURSOR_SIZE", "24")
+
+-- --- Monitor placement ---
+pcall(require, "monitors")
+
+-- Environment Vars
+hl.env("DEFAULT_TARGET_DIR", "/tmp/screenshots")
+
+-- --- Media / volume keys (Corsair VOID v2) ---
+
+hl.bind(
+  "XF86AudioRaiseVolume",
+  hl.dsp.exec_cmd("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"),
+  { locked = true, repeating = true }
+)
+
+hl.bind(
+  "XF86AudioLowerVolume",
+  hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
+  { locked = true, repeating = true }
+)
+
+hl.bind(
+  "code:172",
+  hl.dsp.exec_cmd("playerctl play-pause"),
+  { locked = true }
+)

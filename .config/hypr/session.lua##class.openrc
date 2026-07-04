@@ -3,6 +3,7 @@ return function(hl)
     -- no systemd target on OpenRC - start what the target used to pull in, directly (dbus session already exists via dbus-run-session):
     hl.exec_cmd("/usr/libexec/xdg-desktop-portal-hyprland")
     hl.exec_cmd("gentoo-pipewire-launcher")
+    hl.exec_cmd("udiskie --no-tray --notify")
   end)
 end
 
