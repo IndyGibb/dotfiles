@@ -8,6 +8,7 @@ return {
       python = { "ruff_format" },
       c = { "clang-format" },
       cpp = { "clang-format" },
+      markdown = { "markdownlint-cli2" },
     },
     format_on_save = {
       timeout_ms = 500,

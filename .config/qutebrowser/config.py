@@ -28,7 +28,7 @@ c.url.searchengines = {
 }
 
 # --- Behavior quality-of-life
-c.downloads.location.directory = "~/downloads"
+c.downloads.location.directory = "~/Downloads/"
 c.downloads.location.prompt = False
 c.tabs.show = "multiple"  # Hide tab bar when only one tab
 c.scrolling.smooth = True
