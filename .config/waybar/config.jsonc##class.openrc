@@ -1,0 +1,58 @@
+// -*- mode: jsonc -*-
+{
+	"layer": "top",
+	"position": "top",
+	"height": 34,
+	"spacing": 4,
+
+	"modules-left": ["hyprland/workspaces", "hyprland/window"],
+	"modules-center": ["clock"],
+	"modules-right": ["cpu", "memory", "temperature", "network", "pulseaudio", "tray"],
+
+	"hyprland/workspaces": {
+		"format": "{id}",
+		"on-click": "activate"
+	},
+
+	"hyprland/window": {
+		"max-length": 50,
+		"separate-outputs": true
+	},
+
+	"clock": {
+		"format": " {:%H:%M %a %d %b}"
+	},
+
+	"cpu": {
+		"format": " {usage}%",
+		"interval": 2
+	},
+
+	"memory": {
+		"format": "  {percentage}%"
+	},
+
+	"temperature": {
+    "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
+    "input-filename": "temp1_input",
+		"critical-threshold": 85,
+    "interval": 2,
+		"format": " {temperatureC}°C"
+	},
+
+	"network": {
+		"format-wifi": "  {essid} {signalStrength}%",
+		"format-ethernet": "  {ipaddr}",
+		"format-disconnected":"  offline"
+	},
+
+	"pulseaudio": {
+		"format": "  {volume}%",
+		"format-muted": "",
+		"on-click": "pavucontrol"
+	},
+
+	"tray": {
+		"spacing": 10
+	}
+}
