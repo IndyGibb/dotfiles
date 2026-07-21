@@ -95,25 +95,15 @@ hl.bind(
 
 -- --- Workspaces ---
 
-hl.bind(mainMod .. " + " .. 1, hl.dsp.focus({ workspace = 1 }))
+for i = 1, 10 do
+  local key = tostring(i % 10) -- workspace 10 → key 0
+  hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
+  hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+end
 
-hl.bind(mainMod .. " + " .. 2, hl.dsp.focus({ workspace = 2 }))
-
-hl.bind(mainMod .. " + " .. 3, hl.dsp.focus({ workspace = 3 }))
-
-hl.bind(mainMod .. " + " .. 4, hl.dsp.focus({ workspace = 4 }))
-
-hl.bind(mainMod .. " + " .. 5, hl.dsp.focus({ workspace = 5 }))
-
-hl.bind(mainMod .. " + " .. "SHIFT" .. " + " .. 1, hl.dsp.window.move({ workspace = 1 }))
-
-hl.bind(mainMod .. " + " .. "SHIFT" .. " + " .. 2, hl.dsp.window.move({ workspace = 2 }))
-
-hl.bind(mainMod .. " + " .. "SHIFT" .. " + " .. 3, hl.dsp.window.move({ workspace = 3 }))
-
-hl.bind(mainMod .. " + " .. "SHIFT" .. " + " .. 4, hl.dsp.window.move({ workspace = 4 }))
-
-hl.bind(mainMod .. " + " .. "SHIFT" .. " + " .. 5, hl.dsp.window.move({ workspace = 5 }))
+-- --- Special workspace ---
+hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special({ name = "magic" }))
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
 
 -- --- Mouse drag (move/resize) ---
 

@@ -82,6 +82,7 @@ return {
         map("<leader>oi", "<cmd>Obsidian template<cr>", "[I]nsert template")
         map("<leader>oe", "<cmd>Obsidian extract_note<cr>", "[E]xtract to new note", "v")
         map("<leader>ok", "<cmd>Obsidian link<cr>", "Lin[k] selection", "v")
+        map("<leader>oc", "<cmd>Telescope bibtex<cr>", "[C]ite")
 
         local ok, wk = pcall(require, "which-key")
         if ok then
