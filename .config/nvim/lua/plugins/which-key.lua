@@ -11,6 +11,7 @@ return {
       { "<leader>t", group = "[T]oggle" },
       { "<leader>h", group = "[H]unk" },
       { "<leader>d", group = "[D]ebug" },
+      { "<leader>x", group = "uv" },
     },
   },
   keys = {

@@ -102,8 +102,8 @@ for i = 1, 10 do
 end
 
 -- --- Special workspace ---
-hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special({ name = "magic" }))
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+hl.bind(mainMod .. " + grave", hl.dsp.workspace.toggle_special("magic"))
+hl.bind(mainMod .. " + SHIFT + grave", hl.dsp.window.move({ workspace = "special:magic" }))
 
 -- --- Mouse drag (move/resize) ---
 

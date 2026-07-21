@@ -1,6 +1,6 @@
 sort=-time
 layer=overlay
-font=DepartureMono Nerd Font 11
+font=DepartureMono Nerd Font, Ark Pixel 12px Mono ja, Noto Sans CJK JP 11
 background-color=#1e1e2e
 text-color=#cdd6f4
 border-color=#cba6f7
