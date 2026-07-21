@@ -1,0 +1,68 @@
+#!/usr/bin/env fish
+
+set -l ORIG "$HOME/Pictures/wallpapers/orig"
+set -l DEST "$HOME/Pictures/wallpapers/mocha"
+set -l PALETTE catppuccin-mocha
+set -l ALGO -S -P
+
+command -q lutgen; or begin
+    echo "wallgen: lutgen not found" >&2
+    exit 1
+end
+
+test -d $ORIG; or begin
+    echo "wallgen: $ORIG does not exist" >&2
+    exit 1
+end
+
+mkdir -p $DEST
+set -l stage (mktemp -d)
+
+set -l stills
+set -l anims
+for f in $ORIG/*
+    switch (string lower (path extension $f))
+        case .gif
+            set -a anims $f
+        case '*'
+            set -a stills $f
+    end
+end
+
+if test (count $stills) -gt 0
+    lutgen apply -p $PALETTE $ALGO -c -d -o $stage $stills
+    or begin
+        rm -rf $stage
+        exit 1
+    end
+end
+
+for f in $anims
+    lutgen apply -p $PALETTE $ALGO -c -o $stage/(path basename $f) $f
+    or begin
+        rm -rf $stage
+        exit 1
+    end
+end
+
+set -l n 0
+for f in $stage/*
+    mv -f $f $DEST/
+    set n (math $n + 1)
+end
+rm -rf $stage
+
+set -l orphans
+for f in $DEST/*
+    set -l base (path basename $f | string replace -r '\.[^.]+$' '')
+    set -l match $ORIG/$base.*
+    test (count $match) -eq 0; and set -a orphans (path basename $f)
+end
+
+echo "wallgen: wrote $n file(s) to $DEST"
+if test (count $orphans) -gt 0
+    echo "wallgen: no source in orig/ (left untouched):"
+    for o in $orphans
+        echo "  $o"
+    end
+end
