@@ -34,6 +34,7 @@ hl.config({
       tap_to_click = true,
       disable_while_typing = true,
     },
+    numlock_by_default = true,
   },
 })
 
@@ -129,15 +130,17 @@ hl.bind(mainMod .. " + " .. "D", hl.dsp.exec_cmd(menu))
 -- --- screenshots ---
 
 local screenshot = "grimblast --freeze copysave area"
-hl.bind(mainMod .. " + " .. " SHIFT " .. " + " .. "S", hl.dsp.exec_cmd(screenshot))
+hl.bind(mainMod .. " + " .. "SHIFT" .. " + " .. "S", hl.dsp.exec_cmd(screenshot))
+
+-- --- wallpaper ---
+local wallreload = os.getenv("HOME") .. "/.local/bin/randwall"
+hl.bind(mainMod .. " + " .. "SHIFT" .. " + " .. "W", hl.dsp.exec_cmd(wallreload))
 
 -- --- Autostart ---
 
--- exec-once = swaybg -m fill -i ~/Pictures.wallpaper.png
-
 -- Autostart
 hl.on("hyprland.start", function()
-  hl.exec_cmd("swaybg -c 1e1e2e")
+  hl.exec_cmd(wallreload .. " 30m")
   hl.exec_cmd("waybar")
   hl.exec_cmd("mako")
 end)
@@ -172,6 +175,14 @@ pcall(require, "monitors")
 
 -- Environment Vars
 hl.env("DEFAULT_TARGET_DIR", "/tmp/screenshots")
+hl.env("SAL_USE_VCLPLUGIN", "qt6")
+
+-- Qt theming (Kvantum / Catppuccin Mocha)
+hl.env("QT_QPA_PLATFORMTHEME", "kvantum")
+hl.env("QT_STYLE_OVERRIDE", "kvantum")
+
+-- Wine
+hl.env("PATH", "/etc/eselect/wine/bin:" .. (os.getenv("PATH") or ""))
 
 -- --- Media / volume keys (Corsair VOID v2) ---
 
@@ -187,8 +198,4 @@ hl.bind(
   { locked = true, repeating = true }
 )
 
-hl.bind(
-  "code:172",
-  hl.dsp.exec_cmd("playerctl play-pause"),
-  { locked = true }
-)
+hl.bind("code:172", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })

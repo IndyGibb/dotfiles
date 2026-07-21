@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+DIR="$HOME/Pictures/wallpapers/mocha"
+REJECT="$HOME/Pictures/wallpapers/rejected"
+mkdir -p "$REJECT"
+cd "$DIR" || exit 1
+
+for f in "$@"; do
+  [ -f "$f" ] || continue
+  case "$f" in
+    pixel*|voxel*|retro*) filter=Nearest ;;
+    *)                    filter=Lanczos3 ;;
+  esac
+  awww img "$f" --filter "$filter" --transition-type none
+  read -rp "$f — [k]eep / [r]eject / [q]uit: " ans
+  case "$ans" in
+    r) mv "$f" "$REJECT/" && echo "  rejected" ;;
+    q) break ;;
+  esac
+done
+echo "done"
