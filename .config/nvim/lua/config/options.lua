@@ -26,7 +26,7 @@ opt.inccommand = "split" -- live preview of :substitute
 opt.cursorline = true -- highlight current line
 opt.scrolloff = 10 -- keep 10 lines above/below cursor
 opt.confirm = true -- prompt instead of failing on q
-opt.termguicolors = true -- 24-bit color (foot supports it)
+opt.termguicolors = true -- 24-bit color (ghostty supports it)
 
 opt.tabstop = 2 -- how wide a literal tab character displays
 opt.shiftwidth = 2 -- indent width for >>, <<, and autoindent

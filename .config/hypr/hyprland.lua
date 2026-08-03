@@ -36,6 +36,10 @@ hl.config({
     },
     numlock_by_default = true,
   },
+  misc = {
+    mouse_move_enables_dpms = true,
+    key_press_enables_dpms = true,
+  },
 })
 
 -- --- Layout & borders ---
@@ -117,6 +121,10 @@ local menu = "rofi -show drun"
 
 hl.bind(mainMod .. " + " .. "D", hl.dsp.exec_cmd(menu))
 
+-- emojis and special characters
+
+hl.bind(mainMod .. " + " .. "period", hl.dsp.exec_cmd("rofimoji --selector rofi"))
+
 -- --- screenshots ---
 
 local screenshot = "grimblast --freeze copysave area"
@@ -166,6 +174,7 @@ pcall(require, "monitors")
 -- Environment Vars
 hl.env("DEFAULT_TARGET_DIR", "/tmp/screenshots")
 hl.env("SAL_USE_VCLPLUGIN", "qt6")
+hl.env("BIBINPUTS", "/home/indyg/notes/refs:")
 
 -- Qt theming (Kvantum / Catppuccin Mocha)
 hl.env("QT_QPA_PLATFORMTHEME", "kvantum")

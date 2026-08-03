@@ -1,3 +1,15 @@
+local function long_date()
+  local d = tonumber(os.date("%d"))
+  local suffix = "th"
+  if d % 10 == 1 and d ~= 11 then
+    suffix = "st"
+  elseif d % 10 == 2 and d ~= 12 then
+    suffix = "nd"
+  elseif d % 10 == 3 and d ~= 13 then
+    suffix = "rd"
+  end
+  return os.date("%A ") .. d .. suffix .. os.date(" %B %Y %H%M")
+end
 return {
   "obsidian-nvim/obsidian.nvim",
   version = "*",
@@ -34,6 +46,9 @@ return {
       folder = "Templates",
       date_format = "%Y-%m-%d",
       time_format = "%H:%M",
+      substitutions = {
+        long_date = long_date,
+      },
     },
 
     attachments = {
@@ -47,6 +62,13 @@ return {
     ui = {
       enable = true,
     },
+
+    note_id_func = function(title)
+      if title ~= nil then
+        return title
+      end
+      return tostring(os.time())
+    end,
   },
   config = function(_, opts)
     require("obsidian").setup(opts)
@@ -69,7 +91,7 @@ return {
         end
         map("<leader>oo", "<cmd>Obsidian quick_switch<cr>", "[O]pen note")
         map("<leader>os", "<cmd>Obsidian search<cr>", "[S]earch notes")
-        map("<leader>on", "<cmd>Obsidian new<cr>", "[N]ew note")
+        map("<leader>on", "<cmd>Obsidian new_from_template Neovim Default<cr>", "[N]ew note")
         map("<leader>ot", "<cmd>Obsidian new_from_template<cr>", "New from [T]emplate")
         map("<leader>ob", "<cmd>Obsidian backlinks<cr>", "[B]acklinks")
         map("<leader>ol", "<cmd>Obsidian links<cr>", "[L]inks in note")
@@ -87,6 +109,22 @@ return {
         local ok, wk = pcall(require, "which-key")
         if ok then
           wk.add({ { "<leader>o", group = "[O]bsidian", buffer = buf } })
+        end
+      end,
+    })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      pattern = vault .. "/*.md",
+      callback = function(args)
+        local buf = args.buf
+        local lines = vim.api.nvim_buf_get_lines(buf, 0, 15, false)
+        for i, line in ipairs(lines) do
+          if line:match("^Last modified:") then
+            local new = "Last modified: " .. long_date()
+            if line ~= new then
+              vim.api.nvim_buf_set_lines(buf, i - 1, i, false, { new })
+            end
+            return
+          end
         end
       end,
     })

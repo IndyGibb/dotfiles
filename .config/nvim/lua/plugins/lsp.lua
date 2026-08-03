@@ -52,9 +52,20 @@ return {
       },
     })
 
+    vim.lsp.config("texlab", {
+      settings = {
+        texlab = {
+          chktex = {
+            onOpenAndSave = true,
+            onEdit = false,
+          },
+        },
+      },
+    })
+
     -- Install + auto-enable servers
     require("mason-lspconfig").setup({
-      ensure_installed = { "lua_ls", "basedpyright", "ruff", "clangd" },
+      ensure_installed = { "lua_ls", "basedpyright", "ruff", "clangd", "texlab" },
       automatic_enable = true,
     })
 

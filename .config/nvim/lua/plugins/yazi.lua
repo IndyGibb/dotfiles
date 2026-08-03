@@ -14,7 +14,7 @@ return {
     },
     {
       "<leader>cw",
-      "<cmd>Yazi cmd<cr>",
+      "<cmd>Yazi cwd<cr>",
       desc = "Open yazi in working directory",
     },
     {

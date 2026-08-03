@@ -13,6 +13,16 @@ return {
           end,
         },
       },
+      config = function()
+        local ls = require("luasnip")
+        ls.config.setup({
+          enable_autosnippets = true,
+          update_events = "TextChanged,TextChangedI",
+        })
+        require("luasnip.loaders.from_lua").lazy_load({
+          paths = { vim.fn.stdpath("config") .. "/snippets" },
+        })
+      end,
     },
   },
   ---@module 'blink.cmp'
@@ -25,7 +35,7 @@ return {
       menu = { border = "rounded" },
     },
     sources = {
-      default = { "lsp", "path", "snippets", "buffer" },
+      default = { "lsp", "path", "snippets", "buffer", "lazydev" },
       providers = {
         lazydev = {
           name = "LazyDev",
