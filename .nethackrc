@@ -1,0 +1,67 @@
+# ~/.nethackrc — NetHack 5.0.0, local curses build
+# Reworked from the Hardfought example. Notes on the changes are at the bottom.
+
+#### Interface ####
+OPTIONS=windowtype:curses
+OPTIONS=windowborders:3          # curses: draw window borders when the terminal is big enough
+OPTIONS=color,time,showexp,showscore
+#OPTIONS=symset:DECgraphics      # nicer line-drawn walls on a real local terminal; uncomment to try, comment back if it looks off
+
+#### Movement / digging ####
+OPTIONS=number_pad:2             # numpad movement. Set to 0 for vi-keys (hjkl + yubn) — probably worth trying as a vim user.
+OPTIONS=autodig                  # auto-dig into rock while wielding a pick/mattock (careful: can dig *down* through the floor)
+OPTIONS=boulder:0                # distinct boulder glyph
+
+#### Pickup ####
+OPTIONS=!autopickup              # pick everything up by hand
+# --- Alternative: autopickup ONLY ammo (for a ranged/thrown build).
+# --- Delete the !autopickup line above, then uncomment these:
+#OPTIONS=autopickup
+#OPTIONS=pickup_types:$
+#AUTOPICKUP_EXCEPTION="<*arrow*"
+#AUTOPICKUP_EXCEPTION="<*bolt*"
+#AUTOPICKUP_EXCEPTION="<*dagger*"
+
+#### Quality of life ####
+OPTIONS=sortloot:full            # sort inventory and pickup menus
+OPTIONS=hilite_pet               # mark your pet so you don't attack it by accident
+OPTIONS=paranoid_confirmation:Confirm quit attack pray Remove breakwand
+OPTIONS=disclose:+i +a +v +g +c +o   # auto-reveal inventory/attributes/vanquished/genocided/conduct/overview at game end
+OPTIONS=!tutorial
+OPTIONS=fruit:slime mold
+
+#### Status highlighting ####
+OPTIONS=statushilites:10
+
+# HP by percentage. Critical tier is red&inverse, NOT black — black is invisible on a dark theme.
+OPTIONS=hilite_status: hitpoints/100%/green&normal
+OPTIONS=hilite_status: hitpoints/<100%/lightgreen&normal
+OPTIONS=hilite_status: hitpoints/<76%/yellow&normal
+OPTIONS=hilite_status: hitpoints/<51%/orange&normal
+OPTIONS=hilite_status: hitpoints/<26%/red&normal
+OPTIONS=hilite_status: hitpoints/<11%/red&inverse
+
+# Hunger warnings
+OPTIONS=hilite_status: hunger/Hungry/yellow&normal
+OPTIONS=hilite_status: hunger/Weak/orange&normal
+OPTIONS=hilite_status: hunger/Fainting/red&inverse
+
+# Encumbrance
+OPTIONS=hilite_status: carrying-capacity/Burdened/yellow&normal
+OPTIONS=hilite_status: carrying-capacity/Stressed/orange&normal
+OPTIONS=hilite_status: carrying-capacity/Strained/red&normal
+
+# Lethal countdown conditions — make them impossible to miss
+OPTIONS=hilite_status: condition/stone+slime+strngl+foodpois+termill/red&inverse
+
+# ---------------------------------------------------------------------------
+# Changes from your Hardfought file:
+#  - <11% HP: black -> red&inverse (black was invisible on Catppuccin's dark bg)
+#  - dropped AUTOPICKUP_EXCEPTION="<ammo": no-op with autopickup off, and "ammo"
+#    matches no item description anyway (would need <*arrow* etc.)
+#  - statushilites -> statushilites:10 so changed fields flash briefly
+#  - added: paranoid_confirmation, hilite_pet, sortloot:full, disclose
+#  - added hunger / encumbrance / lethal-condition hilites
+#  - windowborders:3 for curses; DECgraphics offered (commented) now you're
+#    on a local terminal instead of WSL over SSH
+# ---------------------------------------------------------------------------
