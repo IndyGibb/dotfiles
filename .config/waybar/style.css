@@ -11,7 +11,7 @@ window#waybar {
 }
 
 #workspaces, #clock, #battery, #cpu, #memory,
-#temperature, #network, #pulseaudio, #tray {
+#temperature, #network, #bluetooth, #pulseaudio, #tray {
 	background-color: #1e1e2e;
 	padding: 2px 12px;
 	margin: 4px 3px;
@@ -34,6 +34,7 @@ window#waybar {
 #memory { color: #cba6f7; }
 #temperature { color: #fab387; }
 #network { color: #89dceb; }
+#bluetooth { color: #74c7ec; }
 #pulseaudio { color: #f9e2af; }
 
 #battery.warning:not(.charging) { color: #f9e2af; }

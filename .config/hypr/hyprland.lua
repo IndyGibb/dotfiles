@@ -108,6 +108,7 @@ end
 -- --- Special workspace ---
 hl.bind(mainMod .. " + grave", hl.dsp.workspace.toggle_special("magic"))
 hl.bind(mainMod .. " + SHIFT + grave", hl.dsp.window.move({ workspace = "special:magic" }))
+hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("soundboard"))
 
 -- --- Mouse drag (move/resize) ---
 
@@ -141,6 +142,8 @@ hl.on("hyprland.start", function()
   hl.exec_cmd(wallreload .. " 30m")
   hl.exec_cmd("waybar")
   hl.exec_cmd("mako")
+  hl.exec_cmd("pwsp-daemon")
+  hl.exec_cmd("[workspace special:soundboard silent] sh -c 'sleep 1; exec pwsp-gui'")
 end)
 
 -- start/stop hooks
@@ -160,6 +163,11 @@ hl.window_rule({
   match = { class = "hyprpolkitagent" },
   float = true,
   center = true,
+})
+
+hl.window_rule({
+  match = { class = "ru.arabianq.pwsp" },
+  render_unfocused = true,
 })
 
 -- Cursors

@@ -7,7 +7,7 @@
 
 	"modules-left": ["hyprland/workspaces", "hyprland/window"],
 	"modules-center": ["clock"],
-	"modules-right": ["cpu", "memory", "temperature", "network", "pulseaudio", "tray"],
+  "modules-right": ["cpu", "memory", "temperature", "network", "bluetooth", "pulseaudio", "tray"],
 
 	"hyprland/workspaces": {
 		"format": "{id}",
@@ -43,8 +43,18 @@
 	"network": {
 		"format-wifi": "  {essid} {signalStrength}%",
 		"format-ethernet": "  {ipaddr}",
-		"format-disconnected":"  offline"
+		"format-disconnected":"  offline",
+    "on-click": "iwgtk"
 	},
+
+  "bluetooth": {
+    "format": "",
+    "format-connected": " {num_connections}",
+    "tooltip-format": "{controller_alias}",
+    "tooltip-format-connected": "{controller_alias}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}",
+    "on-click": "blueman-manager"
+  },
 
 	"pulseaudio": {
 		"format": "  {volume}%",

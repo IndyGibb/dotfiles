@@ -6,9 +6,15 @@ fzf --fish | source
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -gx MANROFFOPT "-c"
 
-abbr -a ll 'eza -la --git --icons'
-abbr -a lt 'eza --tree --level=2 --icons'
-abbr -a cat 'bat'
+function ll --wraps eza --description 'eza long listing'
+    eza -la --git --icons $argv
+end
+function la --wraps eza --description 'eza all'
+    eza -a --icons $argv
+end
+function lt --wraps eza --description 'eza tree'
+    eza --tree --level=2 --icons $argv
+end
 
 # Catppuccin Mocha colors (set -g so they survive fish default theme)
 set -g fish_color_normal cdd6f4

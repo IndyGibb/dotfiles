@@ -1,39 +1,54 @@
 # ~/.nethackrc — NetHack 5.0.0, local curses build
-# Reworked from the Hardfought example. Notes on the changes are at the bottom.
+#
+# NOTE: nethackrc only treats '#' as a comment when it is the FIRST character
+# on the line. Do NOT put a comment after an OPTIONS= value on the same line —
+# it gets parsed as part of the option and errors out.
 
-#### Interface ####
+# ---- Interface ----
 OPTIONS=windowtype:curses
-OPTIONS=windowborders:3          # curses: draw window borders when the terminal is big enough
+# curses: draw window borders when the terminal is big enough
+OPTIONS=windowborders:3
 OPTIONS=color,time,showexp,showscore
-#OPTIONS=symset:DECgraphics      # nicer line-drawn walls on a real local terminal; uncomment to try, comment back if it looks off
+# nicer line-drawn walls on a real local terminal; delete this line if walls look wrong
+OPTIONS=symset:DECgraphics
+OPTIONS=perm_invent
 
-#### Movement / digging ####
-OPTIONS=number_pad:2             # numpad movement. Set to 0 for vi-keys (hjkl + yubn) — probably worth trying as a vim user.
-OPTIONS=autodig                  # auto-dig into rock while wielding a pick/mattock (careful: can dig *down* through the floor)
-OPTIONS=boulder:0                # distinct boulder glyph
+# ---- Movement / digging ----
+# numpad movement; set to 0 for vi-keys (hjkl + yubn)
+OPTIONS=number_pad:2
+# auto-dig into rock with a pick/mattock (careful: can dig *down* through the floor)
+OPTIONS=autodig
+# distinct boulder glyph
+OPTIONS=boulder:0
 
-#### Pickup ####
-OPTIONS=!autopickup              # pick everything up by hand
-# --- Alternative: autopickup ONLY ammo (for a ranged/thrown build).
-# --- Delete the !autopickup line above, then uncomment these:
+# ---- Pickup ----
+# pick everything up by hand
+OPTIONS=!autopickup
+# Alternative: autopickup ONLY ammo (for a ranged/thrown build).
+# Delete the !autopickup line above, then uncomment these:
 #OPTIONS=autopickup
 #OPTIONS=pickup_types:$
 #AUTOPICKUP_EXCEPTION="<*arrow*"
 #AUTOPICKUP_EXCEPTION="<*bolt*"
 #AUTOPICKUP_EXCEPTION="<*dagger*"
 
-#### Quality of life ####
-OPTIONS=sortloot:full            # sort inventory and pickup menus
-OPTIONS=hilite_pet               # mark your pet so you don't attack it by accident
-OPTIONS=paranoid_confirmation:Confirm quit attack pray Remove breakwand
-OPTIONS=disclose:+i +a +v +g +c +o   # auto-reveal inventory/attributes/vanquished/genocided/conduct/overview at game end
+# ---- Quality of life ----
+# sort inventory and pickup menus
+OPTIONS=sortloot:full
+# mark your pet so you don't attack it by accident
+OPTIONS=hilite_pet
+# require explicit confirmation for these dangerous actions
+OPTIONS=paranoid_confirmation:Confirm quit attack pray Remove swim trap
+# auto-reveal inventory/attributes/vanquished/genocided/conduct/overview at game end
+OPTIONS=disclose:+i +a +v +g +c +o
 OPTIONS=!tutorial
 OPTIONS=fruit:slime mold
+OPTIONS=mention_decor,pile_limit:0
 
-#### Status highlighting ####
+# ---- Status highlighting ----
 OPTIONS=statushilites:10
 
-# HP by percentage. Critical tier is red&inverse, NOT black — black is invisible on a dark theme.
+# HP by percentage. Critical tier is red&inverse (black is invisible on a dark theme).
 OPTIONS=hilite_status: hitpoints/100%/green&normal
 OPTIONS=hilite_status: hitpoints/<100%/lightgreen&normal
 OPTIONS=hilite_status: hitpoints/<76%/yellow&normal
@@ -53,15 +68,3 @@ OPTIONS=hilite_status: carrying-capacity/Strained/red&normal
 
 # Lethal countdown conditions — make them impossible to miss
 OPTIONS=hilite_status: condition/stone+slime+strngl+foodpois+termill/red&inverse
-
-# ---------------------------------------------------------------------------
-# Changes from your Hardfought file:
-#  - <11% HP: black -> red&inverse (black was invisible on Catppuccin's dark bg)
-#  - dropped AUTOPICKUP_EXCEPTION="<ammo": no-op with autopickup off, and "ammo"
-#    matches no item description anyway (would need <*arrow* etc.)
-#  - statushilites -> statushilites:10 so changed fields flash briefly
-#  - added: paranoid_confirmation, hilite_pet, sortloot:full, disclose
-#  - added hunger / encumbrance / lethal-condition hilites
-#  - windowborders:3 for curses; DECgraphics offered (commented) now you're
-#    on a local terminal instead of WSL over SSH
-# ---------------------------------------------------------------------------
