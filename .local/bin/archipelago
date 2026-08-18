@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+cd "$HOME/Applications/Archipelago" || exit 1
+exec ./ArchipelagoLauncher "$@"

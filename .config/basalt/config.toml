@@ -1,0 +1,10 @@
+vim_mode = true
+
+[symbols]
+preset = "nerd-font"
+
+[global]
+key_bindings = [
+  { key = "ctrl+alt+e", command = "exec:nvim %note_path" },
+  { key = "ctrl+alt+o", command = "spawn:xdg-open obsidian://open?vault=%vault&file=%note" },
+]

@@ -1,0 +1,31 @@
+#!/bin/sh
+# ~/.local/bin/ktane
+PREFIX="$HOME/.wine-ktane"
+EXE="$HOME/Applications/KTaNE AP Manuals/KTANEExpertManualsClient_win.exe"
+URL="http://localhost:21713"
+
+# re-exec inside Ghostty if we're not already in it
+if [ -z "$KTANE_IN_TERM" ]; then
+    exec ghostty -e env KTANE_IN_TERM=1 "$0"
+fi
+
+if lsof -i :21713 -sTCP:LISTEN -t >/dev/null 2>&1; then
+    notify-send "KTaNE" "Port 21713 already in use — already running?" 2>/dev/null
+    exit 1
+fi
+
+(
+    for _ in $(seq 1 50); do
+        if lsof -i :21713 -sTCP:LISTEN -t >/dev/null 2>&1; then
+            xdg-open "$URL"
+            break
+        fi
+        sleep 0.2
+    done
+) &
+
+env WINEPREFIX="$PREFIX" WINEDEBUG=-all /etc/eselect/wine/bin/wine "$EXE"
+
+echo
+echo "[ktane exited — press enter to close]"
+read _

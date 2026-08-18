@@ -1,0 +1,14 @@
+[mgr]
+show_hidden = true
+
+[opener]
+archipelago = [
+  { run = 'archipelago "$@"', desc = "Open with Archipelago", for = "linux" },
+]
+
+[open]
+prepend_rules = [
+  { url = "*.apworld", use = "archipelago" },
+  { url = "*.archipelago", use = "archipelago" },
+  { url = "*.aplttp", use = "archipelago" },
+]

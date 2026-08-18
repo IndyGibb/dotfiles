@@ -1,0 +1,7 @@
+include catppuccin-mocha
+set selection-clipboard clipboard
+set synctex true
+set adjust-open "best-fit"
+set statusbar-home-tilde true
+set window-title-basename true
+set recolor true

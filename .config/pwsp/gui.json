@@ -1,0 +1,15 @@
+{
+  "scale_factor": 1.0,
+  "left_panel_width": 280.0,
+  "save_volume": true,
+  "save_volume_multiplier": true,
+  "save_input": true,
+  "save_scale_factor": true,
+  "pause_on_exit": true,
+  "dirs": [
+    "/home/indyg/Music/PWSP"
+  ],
+  "dirs_settings": {},
+  "preferred_theme": "System",
+  "forced_lang": null
+}

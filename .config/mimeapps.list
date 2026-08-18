@@ -1,0 +1,26 @@
+
+[Default Applications]
+x-scheme-handler/discord=vesktop.desktop
+x-scheme-handler/ror2mm=gale-handler.desktop
+x-scheme-handler/gale=gale-handler.desktop
+x-scheme-handler/discord-554440738952183828=discord-554440738952183828.desktop
+x-scheme-handler/discord-455712169795780630=discord-455712169795780630.desktop
+image/jpeg=swayimg.desktop
+image/png=swayimg.desktop
+image/gif=swayimg.desktop
+image/webp=swayimg.desktop
+image/svg+xml=swayimg.desktop
+image/avif=swayimg.desktop
+image/heif=swayimg.desktop
+application/x-archipelago-world=archipelago.desktop
+application/x-archipelago-multidata=archipelago.desktop
+application/x-archipelago-patch-lttp=archipelago.desktop
+x-scheme-handler/roblox-player=roblox-sober.desktop
+text/html=librewolf.desktop
+x-scheme-handler/http=librewolf.desktop
+x-scheme-handler/https=librewolf.desktop
+x-scheme-handler/about=librewolf.desktop
+x-scheme-handler/unknown=librewolf.desktop
+application/pdf=sioyek.desktop
+x-scheme-handler/obsidian=obsidian.desktop
+

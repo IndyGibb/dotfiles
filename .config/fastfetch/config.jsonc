@@ -1,0 +1,54 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+
+  "logo": {
+    "type": "builtin",
+    "source": "gentoo",
+    "color": {
+      "1": "38;2;180;190;254",   // lavender #b4befe
+      "2": "38;2;205;214;244"    // text #cdd6f4
+    },
+    "padding": { "top": 1, "right": 3 }
+  },
+
+  "display": {
+    "brightColor": false,
+    "color": {
+      "title":     "1;38;2;245;194;231",  // pink #f5c2e7
+      "keys":      "38;2;203;166;247",    // mauve
+      "separator": "38;2;127;132;156",    // overlay1 #7f849c
+      "output":    "38;2;205;214;244"     // text #cdd6f4
+    }
+  },
+  "modules": [
+    "title",
+    "separator",
+    "os",
+    "host",
+    "kernel",
+    "uptime",
+    "packages",
+    "shell",
+    "display",
+    "de",
+    "wm",
+    "wmtheme",
+    "theme",
+    "icons",
+    "font",
+    "cursor",
+    "terminal",
+    "terminalfont",
+    "cpu",
+    "gpu",
+    "memory",
+    "swap",
+    "disk",
+    "localip",
+    "battery",
+    "poweradapter",
+    "locale",
+    "break",
+    "colors"
+  ]
+}
