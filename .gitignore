@@ -1,0 +1,46 @@
+# ── Broad app-data / cache dirs (never tracked) ──
+.local/*
+!.local/bin/
+.cache/
+Applications/
+.apptainer/
+.steam/
+.steampid
+.steampath
+.pki/
+.nvidia-settings-rc
+.mozilla/
+.thunderbird/
+# ── Sensitive — MUST never be committed ──
+.ssh/
+mok-keys-backup/
+# ── Session scratch / reference files ──
+*-world.txt
+*-world-verbose.txt
+desktop-package.use-backup/
+desktop-package.accept_keywords-backup/
+desktop-repos.conf-backup/
+laptop-install-keep.txt
+kernel-extras.config
+kernel-diff.txt
+kernel-portable-candidates.txt
+efibootmgr-before-refind.txt
+config-*-backup
+python-targets.txt
+*.local-old
+
+# ── More untracked junk ──
+.bash_history
+.bash_logout
+.bashrc
+.bash_profile
+Projects/
+grub/
+hyprconf2lua/
+Desktop/*.desktop
+.config/rog/
+.config/qutebrowser/autoconfig.yml
+.config/qutebrowser/bookmarks/
+.config/systemd##class.systemd/user/*.wants/
+.config/nvim/lazy-lock.json
+.config/nvim/lazy-lock.json

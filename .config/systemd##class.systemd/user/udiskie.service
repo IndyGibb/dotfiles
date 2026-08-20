@@ -1,0 +1,12 @@
+# ~/.config/systemd/user/udiskie.service
+[Unit]
+Description=udiskie automount
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/udiskie --smart-tray
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target
