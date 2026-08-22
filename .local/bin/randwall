@@ -1,56 +1,76 @@
 #!/usr/bin/env bash
+
 DIR="$HOME/Pictures/wallpapers/mocha"
 RUN="${XDG_RUNTIME_DIR:-/tmp}"
 INTERVAL="${1:-}"
+FPS="${AWWW_FPS:-120}"
 
 command -v awww >/dev/null 2>&1 || exit 0
 [ -d "$DIR" ] || exit 0
 
-OUTPUTS=(DP-1:200 DP-2:120)
+get_outputs() {
+  awww query 2>/dev/null |
+    sed -n 's/^: \([^:]*\):.*/\1/p'
+}
 
 pick() {
   local state="$1" last cur
+
   last="$(cat "$state" 2>/dev/null)"
+
   for _ in 1 2 3 4 5; do
-    cur="$(find "$DIR" -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.gif' \) | shuf -n1)"
+    cur="$(
+      find "$DIR" -type f \
+        \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.gif' \) |
+      shuf -n1
+    )"
+
+    [ -n "$cur" ] || return 1
     [ "$cur" != "$last" ] && break
   done
+
   printf '%s' "$cur" | tee "$state"
 }
 
-set_output() {
-  local out="$1" fps="$2" wall filter
-  wall="$(pick "$RUN/randwall.last.$out")"
-  case "$(basename "$wall")" in
-    pixel*|voxel*|retro*) filter=Nearest ;;
-    *)                    filter=Lanczos3 ;;
-  esac
-  awww img "$wall" \
-    --outputs "$out" \
-    --filter "$filter" \
-    --transition-type random \
-    --transition-duration 1.5 \
-    --transition-fps "$fps"
-}
-
 set_wall() {
-  local wall filter entry
-  wall="$(pick "$RUN/randwall.last")"
+  local wall filter out
+
+  wall="$(pick "$RUN/randwall.last")" || return 1
+
   case "$(basename "$wall")" in
-    pixel*|voxel*|retro*) filter=Nearest ;;
-    *)                    filter=Lanczos3 ;;
+    pixel*|voxel*|retro*)
+      filter=Nearest
+      ;;
+    *)
+      filter=Lanczos3
+      ;;
   esac
-  for entry in "${OUTPUTS[@]}"; do
-    awww img "$wall" --outputs "${entry%%:*}" --filter "$filter" \
-      --transition-type random --transition-duration 1.5 \
-      --transition-fps "${entry##*:}"
-  done
+
+  while IFS= read -r out; do
+    [ -n "$out" ] || continue
+
+    awww img "$wall" \
+      --outputs "$out" \
+      --filter "$filter" \
+      --transition-type random \
+      --transition-duration 1.5 \
+      --transition-fps "$FPS"
+  done < <(get_outputs)
 }
 
-awww query &>/dev/null || { awww-daemon & sleep 0.5; }
+# Start the daemon if it isn't running.
+if ! awww query &>/dev/null; then
+  awww-daemon &
+  sleep 0.5
+fi
+
+# Don't do anything if no outputs are available.
+get_outputs | grep -q . || exit 0
 
 set_wall
 
 if [ -n "$INTERVAL" ]; then
-  while sleep "$INTERVAL"; do set_wall; done
+  while sleep "$INTERVAL"; do
+    set_wall
+  done
 fi
